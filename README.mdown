@@ -1,0 +1,55 @@
+# SSUnreadBubble
+
+SSUnreadBubble is an *attempt* at recreating (in CoreGraphics) the little blue unread message bubble, that appears in the iPhone Mail.app.
+
+If you have any comments, suggestions or want to contribute, please do!
+
+---
+
+## Usage and Example Implementation
+
+Out of the box, the SSUnreadBubble class looks like Apple's unread bubble, small, blue and shiny. You can, however, customize the size, fill color gradient, border size and border gradient.
+
+
+	// Standard implementation
+	SSUnreadBubble *standardBubble = [[[SSUnreadBubble alloc] init] autorelease];
+	[someView addSubview:standardBubble];
+
+	// Custom bubble
+	SSUnreadBubble *customBubble = [[[SSUnreadBubble alloc] initWithFrame:CGRectMake(100, 100, 50, 50)] autorelease];
+
+	customBubble.radius = 50.0;
+
+	customBubble.fillStartColor = [UIColor redColor];
+	customBubble.fillEndColor = [UIColor blueColor];
+
+	customBubble.borderSize = 5.0;
+
+	customBubble.borderStartColor = [UIColor blueColor];
+	customBubble.borderEndColor = [UIColor endColor];
+
+	[someView addSubview:customBubble];
+
+---
+
+## License and such...
+
+SSUnreadBubble is available under the MIT license:
+
+_Permission is hereby granted, free of charge, to any person obtaining a copy_
+_of this software and associated documentation files (the "Software"), to deal_
+_in the Software without restriction, including without limitation the rights_
+_to use, copy, modify, merge, publish, distribute, sublicense, and/or sell_
+_copies of the Software, and to permit persons to whom the Software is_
+_furnished to do so, subject to the following conditions:_
+
+_The above copyright notice and this permission notice shall be included in_
+_all copies or substantial portions of the Software._
+
+_THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR_
+_IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,_
+_FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE_
+_AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER_
+_LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,_
+_OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN_
+_THE SOFTWARE._
