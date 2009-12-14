@@ -4,8 +4,6 @@ SSUnreadBubble is an *attempt* at recreating (in CoreGraphics) the little blue u
 
 If you have any comments, suggestions or want to contribute, please do!
 
----
-
 ## Usage and Example Implementation
 
 Out of the box, the SSUnreadBubble class looks like Apple's unread bubble, small, blue and shiny. You can, however, customize the size, fill color gradient, border size and border gradient.
@@ -29,8 +27,6 @@ Out of the box, the SSUnreadBubble class looks like Apple's unread bubble, small
 	customBubble.borderEndColor = [UIColor endColor];
 
 	[someView addSubview:customBubble];
-
----
 
 ## License and such...
 
