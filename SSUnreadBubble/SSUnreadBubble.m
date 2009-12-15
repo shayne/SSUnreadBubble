@@ -8,17 +8,17 @@
 
 #import "SSUnreadBubble.h"
 
-#define kDefaultRadius 12.0
-#define kDefaultBorderWidth 1.0
+#define kDefaultRadius 14
+#define kDefaultBorderWidth 1
 
-#define kDefaultFillStartColor [UIColor colorWithRed:112.0/255.0 \
-                                               green:161.0/255.0 \
-                                                blue:251.0/255.0 \
+#define kDefaultFillStartColor [UIColor colorWithRed:109.0/255.0 \
+                                               green:165.0/255.0 \
+                                                blue:255.0/255.0 \
                                                alpha:1.0]
 
-#define kDefaultFillEndColor [UIColor colorWithRed:62.0/255.0 \
-                                             green:105.0/255.0 \
-                                              blue:203.0/255.0 \
+#define kDefaultFillEndColor [UIColor colorWithRed:66.0/255.0 \
+                                             green:106.0/255.0 \
+                                              blue:186.0/255.0 \
                                              alpha:1.0]
 
 #define kDefaultBorderStartColor [UIColor colorWithRed:109.0/255.0 \
@@ -78,68 +78,40 @@ borderStartColor = borderStartColor_, borderEndColor = borderEndColor_;
   CGRect rect = CGRectMake(0, 0, radius_, radius_);
   CGRect fillRect = CGRectInset(rect, borderWidth_, borderWidth_);
   
-  CGContextSetAllowsAntialiasing(context, true);
-  CGContextSetShouldAntialias(context, true);
+  CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
   
-  CGColorSpaceRef borderRGB = CGColorSpaceCreateDeviceRGB();
-  
-  CGFloat borderLocations[2] = { 0.0, 1.0 };
   CGFloat borderComponents[8];
   
-  const CGFloat *borderStartComponents = CGColorGetComponents([borderStartColor_ CGColor]);
-  const CGFloat *borderEndComponents = CGColorGetComponents([borderEndColor_ CGColor]);
-  
-  borderComponents[0] = borderStartComponents[0];
-  borderComponents[1] = borderStartComponents[1];
-  borderComponents[2] = borderStartComponents[2];
-  borderComponents[3] = borderStartComponents[3];
-  borderComponents[4] = borderEndComponents[0];
-  borderComponents[5] = borderEndComponents[1];
-  borderComponents[6] = borderEndComponents[2];
-  borderComponents[7] = borderEndComponents[3];
+  memcpy(borderComponents, CGColorGetComponents([borderStartColor_ CGColor]), 4*sizeof(CGFloat));
+  memcpy(&borderComponents[4], CGColorGetComponents([borderEndColor_ CGColor]), 4*sizeof(CGFloat));
   
   CGGradientRef borderGradient =
-    CGGradientCreateWithColorComponents(borderRGB, borderComponents, borderLocations, 2);
+    CGGradientCreateWithColorComponents(rgb, borderComponents, NULL, 2);
   
   CGContextAddEllipseInRect(context, rect);
   CGContextClip(context);
   
   CGContextDrawLinearGradient(context, borderGradient, CGPointMake(radius_/2.0, 0),
-                              CGPointMake(radius_/2.0, radius_),
-                              kCGGradientDrawsAfterEndLocation);
+                              CGPointMake(radius_/2.0, radius_), 0);
   
   CGGradientRelease(borderGradient);
-  CGColorSpaceRelease(borderRGB);
   
-  CGColorSpaceRef fillRGB = CGColorSpaceCreateDeviceRGB();
-  
-  CGFloat fillLocations[2] = { 0.0, 1.0 };
   CGFloat fillComponents[8];
   
-  const CGFloat *fillStartComponents = CGColorGetComponents([fillStartColor_ CGColor]);
-  const CGFloat *fillEndComponents = CGColorGetComponents([fillEndColor_ CGColor]);
-  
-  fillComponents[0] = fillStartComponents[0];
-  fillComponents[1] = fillStartComponents[1];
-  fillComponents[2] = fillStartComponents[2];
-  fillComponents[3] = fillStartComponents[3];
-  fillComponents[4] = fillEndComponents[0];
-  fillComponents[5] = fillEndComponents[1];
-  fillComponents[6] = fillEndComponents[2];
-  fillComponents[7] = fillEndComponents[3];
+  memcpy(fillComponents, CGColorGetComponents([fillStartColor_ CGColor]), 4*sizeof(CGFloat));
+  memcpy(&fillComponents[4], CGColorGetComponents([fillEndColor_ CGColor]), 4*sizeof(CGFloat));
   
   CGGradientRef fillGradient =
-    CGGradientCreateWithColorComponents(fillRGB, fillComponents, fillLocations, 2);
+    CGGradientCreateWithColorComponents(rgb, fillComponents, NULL, 2);
   
   CGContextAddEllipseInRect(context, fillRect);
   CGContextClip(context);
   
   CGContextDrawLinearGradient(context, fillGradient, CGPointMake(radius_/2.0, 0),
-                              CGPointMake(radius_/2.0, radius_),
-                              kCGGradientDrawsAfterEndLocation);
+                              CGPointMake(radius_/2.0, radius_), 0);
   
   CGGradientRelease(fillGradient);
-  CGColorSpaceRelease(fillRGB);
+  CGColorSpaceRelease(rgb);
   
 }
 
