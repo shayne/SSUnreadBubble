@@ -35,9 +35,9 @@
 
 @implementation SSUnreadBubble
 
-@synthesize radius = radius_, borderWidth = borderWidth_,
-fillStartColor = fillStartColor_, fillEndColor = fillEndColor_,
-borderStartColor = borderStartColor_, borderEndColor = borderEndColor_;
+@synthesize borderWidth = borderWidth_, fillStartColor = fillStartColor_,
+fillEndColor = fillEndColor_, borderStartColor = borderStartColor_,
+borderEndColor = borderEndColor_;
 
 - (id)init {
   return [self initWithFrame:CGRectMake(0, 0, kDefaultRadius, kDefaultRadius)];
@@ -46,8 +46,6 @@ borderStartColor = borderStartColor_, borderEndColor = borderEndColor_;
 - (id)initWithFrame:(CGRect)frame {
   if (self = [super initWithFrame:frame]) {
     self.opaque = NO;
-    
-    radius_ = kDefaultRadius;
     borderWidth_ = kDefaultBorderWidth;
     
     self.fillStartColor = kDefaultFillStartColor;
@@ -60,7 +58,6 @@ borderStartColor = borderStartColor_, borderEndColor = borderEndColor_;
 }
 
 - (void)dealloc {
-  radius_ = 0;
   borderWidth_ = 0;
   [fillStartColor_ release];
   [fillEndColor_ release];
@@ -75,8 +72,10 @@ borderStartColor = borderStartColor_, borderEndColor = borderEndColor_;
 }
 
 - (void)drawInContext:(CGContextRef)context {
-  CGRect rect = CGRectMake(0, 0, radius_, radius_);
+  CGRect rect = self.bounds;
   CGRect fillRect = CGRectInset(rect, borderWidth_, borderWidth_);
+  
+  CGFloat r = CGRectGetWidth(rect);
   
   CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
   
@@ -91,8 +90,8 @@ borderStartColor = borderStartColor_, borderEndColor = borderEndColor_;
   CGContextAddEllipseInRect(context, rect);
   CGContextClip(context);
   
-  CGContextDrawLinearGradient(context, borderGradient, CGPointMake(radius_/2.0, 0),
-                              CGPointMake(radius_/2.0, radius_), 0);
+  CGContextDrawLinearGradient(context, borderGradient, CGPointMake(r/2.0, 0),
+                              CGPointMake(r/2.0, r), 0);
   
   CGGradientRelease(borderGradient);
   
@@ -107,8 +106,8 @@ borderStartColor = borderStartColor_, borderEndColor = borderEndColor_;
   CGContextAddEllipseInRect(context, fillRect);
   CGContextClip(context);
   
-  CGContextDrawLinearGradient(context, fillGradient, CGPointMake(radius_/2.0, 0),
-                              CGPointMake(radius_/2.0, radius_), 0);
+  CGContextDrawLinearGradient(context, fillGradient, CGPointMake(r/2.0, 0),
+                              CGPointMake(r/2.0, r), 0);
   
   CGGradientRelease(fillGradient);
   CGColorSpaceRelease(rgb);

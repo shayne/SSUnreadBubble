@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface SSUnreadBubble : UIView {
-  CGFloat radius_;
   CGFloat borderWidth_;
   UIColor *fillStartColor_;
   UIColor *fillEndColor_;
@@ -17,7 +16,6 @@
   UIColor *borderEndColor_;
 }
 
-@property (nonatomic, assign) CGFloat radius;
 @property (nonatomic, assign) CGFloat borderWidth;
 @property (nonatomic, retain) UIColor *fillStartColor;
 @property (nonatomic, retain) UIColor *fillEndColor;

@@ -32,7 +32,6 @@
   [window_ addSubview:customLabel];
   
   SSUnreadBubble *customBubble = [[[SSUnreadBubble alloc] initWithFrame:CGRectMake(135, 275, 50, 50)] autorelease];
-  customBubble.radius = 50;
   customBubble.borderWidth = 5;
   customBubble.fillStartColor = [UIColor blueColor];
   customBubble.fillEndColor = [UIColor yellowColor];
